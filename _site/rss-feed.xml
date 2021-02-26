@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>코발트 팀 블로그</title>
+		<description>혁신을 추구하다, 코발트</description>
+		<link></link>
+		<atom:link href="/rss-feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>MongoDB 이해하기</title>
+				
+					<dc:creator>kciter</dc:creator>
+				
+				
+					<description>&lt;p&gt; 사내에서 MongoDB를 잘 쓰기위한 스터디를 하게되어 이번 기회에 관련 자료를 정리하기로 했다. MongoDB가 왜 필요한지, 더 잘사용하기 위해서 무엇이 필요한지를 중심으로 처음 MongoDB를 사용할 때 도움이 될 만한 내용으로 정리했다.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Thu, 25 Feb 2021 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/posts/about-mongodb</link>
+				<guid isPermaLink="true">http://localhost:4000/posts/about-mongodb</guid>
+			</item>
+		
+	</channel>
+</rss>

@@ -1,0 +1,60 @@
+
+y:
+  avatar: /assets/img/members/y.png
+  name: 이해일
+  email: y@cobalt.run
+  description: 기술과 금융에 능통한 연쇄 창업가, 코발트 CEO
+  social:
+    - {icon: 'facebook', link: 'https://www.facebook.com/andstella'}
+    - {icon: 'envelope', link: 'mailto:y@cobalt.run'}
+
+stella:
+  avatar: /assets/img/members/stella.png
+  name: 김서현
+  email: stella@cobalt.run
+  description: Service Designer
+  social:
+    - {icon: 'facebook', link: 'https://www.facebook.com/andstella'}
+    - {icon: 'envelope', link: 'mailto:stella@cobalt.run'}
+
+luke.lee:
+  avatar: /assets/img/members/lukelee.png
+  name: 이기수
+  email: luke.lee@cobalt.run
+  description: Business Developer
+  social:
+    - {icon: 'envelope', link: 'mailto:luke.lee@cobalt.run'}
+
+kciter:
+  avatar: /assets/img/members/kciter.png
+  name: 이선협
+  homepage: https://kciter.so
+  email: kciter@cobalt.run
+  description: 바쁨을 꿈꾸는 개발자
+  social:
+    - {icon: 'github', link: 'https://github.com/kciter'}
+    # - {icon: 'twitter', link: 'https://twitter.com/paululele'}
+    # - {icon: 'linkedin', link: 'http://www.linkedin.com/in/lenpaul/'}
+    - {icon: 'facebook', link: 'https://www.facebook.com/sunhyoup.lee/'}
+    - {icon: 'envelope', link: 'mailto:kciter@cobalt.run'}
+
+jieunkim:
+  avatar: /assets/img/members/jieunkim.png
+  name: 김지은
+  homepage: https://wiki.jieunkim.site
+  email: jieunkim@cobalt.run
+  description: Front-End Developer
+  social:
+    - {icon: 'github', link: 'https://github.com/StellaKim1230'}
+    - {icon: 'envelope', link: 'mailto:stella@cobalt.run'}
+
+regyu:
+  avatar: /assets/img/members/regyu.png
+  name: 김지은
+  homepage: https://regyu.dev
+  email: regyu@cobalt.run
+  description: Back-End Developer
+  social:
+    - {icon: 'github', link: 'https://github.com/Jo-GyuHyeon'}
+    - {icon: 'envelope', link: 'mailto:regyu@cobalt.run'}
+
