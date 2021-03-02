@@ -7,6 +7,21 @@
 		<atom:link href="/rss-feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>웹 개발을 위해 꼭 알아야하는 보안 공격</title>
+				
+					<dc:creator>kciter</dc:creator>
+				
+				
+					<description>&lt;p&gt; 이번 포스팅에선 아주 중요하지만 프로그래밍 교육 과정에서 크게 다루지 않는 &lt;strong&gt;보안&lt;/strong&gt;에 대해 이야기 해보려고 한다. 최근엔 프레임워크나 라이브러리 차원에서 잘 막아주기 때문에 큰 언급없이 넘어가는 경우가 많지만 소프트웨어 개발자는 꼭 보안 전문가가 아니더라도 기초적인 공격 방법에 대해 이해하고 방어하는 방법을 알아야 할 필요가 있다.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Sun, 28 Feb 2021 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/posts/basic-web-hacking</link>
+				<guid isPermaLink="true">http://localhost:4000/posts/basic-web-hacking</guid>
+			</item>
+		
+			<item>
 				<title>MongoDB 이해하기</title>
 				
 					<dc:creator>kciter</dc:creator>
