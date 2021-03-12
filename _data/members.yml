@@ -17,14 +17,6 @@ stella:
     - {icon: 'facebook', link: 'https://www.facebook.com/andstella'}
     - {icon: 'envelope', link: 'mailto:stella@cobalt.run'}
 
-luke.lee:
-  avatar: /assets/img/members/lukelee.png
-  name: 이기수
-  email: luke.lee@cobalt.run
-  description: Business Developer
-  social:
-    - {icon: 'envelope', link: 'mailto:luke.lee@cobalt.run'}
-
 kciter:
   avatar: /assets/img/members/kciter.png
   name: 이선협
