@@ -22,7 +22,7 @@ kciter:
   name: 이선협
   homepage: https://kciter.so
   email: kciter@cobalt.run
-  description: 바쁨을 꿈꾸는 개발자
+  description: 코발트 수석 개발자
   social:
     - {icon: 'github', link: 'https://github.com/kciter'}
     # - {icon: 'twitter', link: 'https://twitter.com/paululele'}
