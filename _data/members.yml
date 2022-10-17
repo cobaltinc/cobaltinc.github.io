@@ -25,8 +25,8 @@ kciter:
   description: 코발트 수석 개발자
   social:
     - {icon: 'github', link: 'https://github.com/kciter'}
-    # - {icon: 'twitter', link: 'https://twitter.com/paululele'}
-    # - {icon: 'linkedin', link: 'http://www.linkedin.com/in/lenpaul/'}
+    - {icon: 'twitter', link: 'https://twitter.com/paululele'}
+    - {icon: 'linkedin', link: 'http://www.linkedin.com/in/kciter/'}
     - {icon: 'facebook', link: 'https://www.facebook.com/sunhyoup.lee/'}
     - {icon: 'envelope', link: 'mailto:kciter@cobalt.run'}
 
@@ -41,11 +41,12 @@ jieunkim:
     - {icon: 'envelope', link: 'mailto:stella@cobalt.run'}
 
 regyu:
-  avatar: /assets/img/members/regyu.png
-  name: 조규현
-  homepage: https://regyu.dev
-  email: regyu@cobalt.run
-  description: Back-End Developer
+  avatar: /assets/img/members/cobalt.png
+  name: 코발트
+  homepage: https://cobalt.run
+  email: cobalt@cobalt.run
+  description: Cobalt
   social:
-    - {icon: 'github', link: 'https://github.com/Jo-GyuHyeon'}
-    - {icon: 'envelope', link: 'mailto:regyu@cobalt.run'}
+    - {icon: 'github', link: 'https://github.com/cobaltinc'}
+    - {icon: 'facebook', link: 'https://github.com/cobaltinc'}
+    - {icon: 'envelope', link: 'mailto:cobalt@cobalt.run'}
