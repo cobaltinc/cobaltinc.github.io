@@ -40,7 +40,7 @@ jieunkim:
     - {icon: 'github', link: 'https://github.com/StellaKim1230'}
     - {icon: 'envelope', link: 'mailto:stella@cobalt.run'}
 
-regyu:
+cobalt:
   avatar: /assets/img/members/cobalt.png
   name: 코발트
   homepage: https://cobalt.run
