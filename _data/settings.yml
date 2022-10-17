@@ -9,7 +9,7 @@ google-ID: ''
 
 menu:
 # - {name: 'Writing', path: 'menu', url: 'writing'}
-- {name: 'Teams', path: 'menu', url: 'team'}
+# - {name: 'Teams', path: 'menu', url: 'team'}
 - {name: 'Contact', path: 'menu', url: 'contact'}
 
 # Available social icons are powered by Font Awesome, so you can use any icon that they offer
