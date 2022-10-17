@@ -46,7 +46,9 @@ comments: true
 <div style="margin: 10px 0">
 개발자들은 가끔씩 엉뚱한 것을 만들어보고 싶을 때가 있습니다. 이런 것을 만드는 시간을 잉여 시간이라고 표현하는데요, 이번 잉여 시간에 이선협님이 만드신 것은 난해한 프로그래밍 언어라는 굉장히 특이한 언어입니다. 대표적인 난해한 프로그래밍 언어인 Brainf**k과 이선협님이 만드신 Jazzlang을 통하여 난해한 프로그래밍 언어가 무엇인지, 언어는 어떻게 만들어지는 것인지에 대해 지식을 공유해주셨습니다.<br />
 </div>
-<a href="https://present.do/documents/633be7e170efd011b8f6b5d4" target="_blank">링크 바로가기</a>
+<a href="https://present.do/documents/633be7e170efd011b8f6b5d4" target="_blank">링크 바로가기</a><br />
+<a href="https://github.com/kciter/brainfuck-impl" target="_blank">Brainfuck 구현체</a><br />
+<a href="https://github.com/kciter/jazzlang" target="_blank">Jazzlang</a>
 
 ## 웹 성능, 우리가 웹 성능 최적화를 해야만 하는 이유
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
