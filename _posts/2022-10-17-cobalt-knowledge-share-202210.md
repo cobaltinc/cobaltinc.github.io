@@ -12,7 +12,7 @@ comments: true
 
 코발트에선 달에 1, 2회 구성원끼리 지식 공유의 날을 가집니다. 9월의 지식 공유 내용을 공개합니다. 🎉
 
-## 김서현 - AGILE > Product Owner
+## AGILE > Product Owner
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/633c03ae70efd011b8f6b969/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
@@ -21,7 +21,7 @@ comments: true
 </div>
 <a href="https://present.do/documents/633c03ae70efd011b8f6b969" target="_blank">링크 바로가기</a>
 
-## 정호정 - Agile organization
+## Agile organization
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/6330f6cfc7bd6826ee8ff992/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
@@ -30,7 +30,7 @@ comments: true
 </div>
 <a href="https://present.do/documents/6330f6cfc7bd6826ee8ff992" target="_blank">링크 바로가기</a>
 
-## 김다연 - Agile 애자일 문화와 마인드셋
+## Agile 애자일 문화와 마인드셋
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/633c024b70efd011b8f6b87c/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
@@ -39,7 +39,7 @@ comments: true
 </div>
 <a href="https://present.do/documents/633c024b70efd011b8f6b87c" target="_blank">링크 바로가기</a>
 
-## 이선협 - 난해한 프로그래밍 언어 만들어보기
+## 난해한 프로그래밍 언어 만들어보기
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/633be7e170efd011b8f6b5d4/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
@@ -48,7 +48,7 @@ comments: true
 </div>
 <a href="https://present.do/documents/633be7e170efd011b8f6b5d4" target="_blank">링크 바로가기</a>
 
-## 김지은 - 웹 성능, 우리가 웹 성능 최적화를 해야만 하는 이유
+## 웹 성능, 우리가 웹 성능 최적화를 해야만 하는 이유
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/633c002170efd011b8f6b7aa/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
@@ -57,16 +57,16 @@ comments: true
 </div>
 <a href="https://present.do/documents/633c002170efd011b8f6b7aa" target="_blank">링크 바로가기</a>
 
-## 익명 - Test Double, 테스트 용어 뭔데? 어떻게 아는 건데?
+## Test Double, 테스트 용어 뭔데? 어떻게 아는 건데?
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/633c01b270efd011b8f6b7d8/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
 <div style="margin: 10px 0">
-코발트에선 Test Driven Development 방법론을 이용하여 개발을 하고 있습니다. 하지만 테스트 도구에 대해서 잘 모르면 오히려 생산성이 크게 저하될 수 있습니다. 따라서 익명의 코발트 백엔드 개발자님이 테스트 용어와 사용 방법에 대해 공유를 해주셨습니다.<br />
+코발트에선 Test Driven Development 방법론을 이용하여 개발을 하고 있습니다. 하지만 테스트 도구에 대해서 잘 모르면 오히려 생산성이 크게 저하될 수 있습니다. 따라서 코발트 백엔드 개발자님이 테스트 용어와 사용 방법에 대해 공유를 해주셨습니다.<br />
 </div>
 <a href="https://present.do/documents/633c01b270efd011b8f6b7d8" target="_blank">링크 바로가기</a>
 
-## 익명 - SRE, 사이트 신뢰성 엔지니어링
+## SRE, 사이트 신뢰성 엔지니어링
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/6335bb5870efd011b8f67dcd/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
@@ -75,7 +75,7 @@ comments: true
 </div>
 <a href="https://present.do/documents/6335bb5870efd011b8f67dcd" target="_blank">링크 바로가기</a>
 
-## 김지은 - MSW + Faker.js
+## MSW + Faker.js
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;">
 <iframe src="https://present.do/documents/633d087e70efd011b8f6c393/embed" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
 </div>
